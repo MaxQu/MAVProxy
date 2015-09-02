@@ -1,5 +1,5 @@
 rem build the standalone MAVProxy.exe for Windows.
-rem This assumes Python is installed in C:\Python27
+rem This assumes Python is installed in D:\Python27
 SETLOCAL enableextensions
 
 rem get the version
@@ -11,16 +11,16 @@ for /f "tokens=*" %%a in (
 
 
 rem -----Upgrade pymavlink if needed-----
-C:\Python27\Scripts\pip install pymavlink -U
+D:\Python27\Scripts\pip install pymavlink -U
 
 rem -----Build MAVProxy-----
 cd ..\
 python setup.py clean build install --user
 cd .\MAVProxy
-C:\Python27\Scripts\pyinstaller --clean ..\windows\mavproxy.spec
+D:\Python27\Scripts\pyinstaller --clean ..\windows\mavproxy.spec
 
 rem -----Build the Installer-----
 cd  ..\windows\
-"C:\Program Files (x86)\Inno Setup 5\ISCC.exe" /dMyAppVersion=%VERSION% -compile mavproxy.iss
-
+rem "D:\Program Files\Inno Setup 5\ISCC.exe" /dMyAppVersion=%VERSION% -compile mavproxy.iss
+"D:\Program Files\Inno Setup 5\ISCC.exe" mavproxy.iss /dMyAppVersion=%VERSION%
 pause
